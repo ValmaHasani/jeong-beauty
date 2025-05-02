@@ -1,0 +1,101 @@
+{% schema %}
+{
+  "name": "Top Brands",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Top Main Brands"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Brand Logo"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Top Brands",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="page-width top-brands-wrapper">
+  <hr/>
+  <div class="top-brands-container">
+    <h2 class="title">{{ settings.section_title | default: 'Top Main Brands' }}</h2>
+    <div class="brands-logos">
+      {% for block in section.blocks %}
+        {% if block.settings.logo %}
+          <div class="brand-logo">
+            <img src="{{ block.settings.logo | img_url: 'medium' }}" alt="Brand Logo" loading="lazy" width="150" height="auto" />
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.top-brands-wrapper {
+  padding: 40px 0;
+  text-align: center;
+}
+.top-brands-wrapper hr {
+  margin-bottom: 40px;
+}
+.top-brands-container .title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.brands-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+.brand-logo img {
+  max-height: 50px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+.brand-logo img:hover {
+  opacity: 1;
+}
+
+@media screen and (max-width: 1024px) {
+    .brands-logos {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      gap: 30px; /* Adjust the gap as necessary */
+      margin-left: 20px
+    }
+  
+    .brand-logo {
+      flex-shrink: 0; /* Prevent the logos from shrinking */
+    }
+  
+    .brand-logo img {
+      max-height: 50px;
+      width: auto; /* Maintain aspect ratio */
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+  }
+  
+</style>

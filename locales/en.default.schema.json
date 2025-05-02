@@ -1951,6 +1951,9 @@
         "price": {
           "name": "Price"
         },
+        "description": {
+          "name": "Description"
+        },
         "inventory": {
           "name": "Inventory status",
           "settings": {
@@ -2019,9 +2022,6 @@
         },
         "pickup_availability": {
           "name": "Pickup availability"
-        },
-        "description": {
-          "name": "Description"
         },
         "sku": {
           "name": "SKU",
@@ -2787,7 +2787,33 @@
         "name": "Quick order list"
       }
     },
-    "related-products": {
+    "frequently-bought-together": {
+      "name": "Frequently Bought Together",
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "paragraph__1": {
+          "content": "Related products can be managed in the [Search & Discovery app](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)",
+          "default": "Frequently Bought Together"
+        },
+        "total-price": {
+          "label": "Total Price"
+        },
+        "paragraph__2": {
+          "content": "Related products can be managed in the [Search & Discovery app](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)",
+          "default": "Total Price:"
+        },
+        "button-text": {
+          "label": "Add both to cart"
+        },
+        "button-text_1": {
+          "content": "Related products can be managed in the [Search & Discovery app](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)",
+          "default": "Add both to cart"
+        }
+      }
+    },
+     "related-products": {
       "name": "Related products",
       "settings": {
         "heading": {

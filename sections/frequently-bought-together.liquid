@@ -1,0 +1,94 @@
+<!-- sections/frequently-bought-together.liquid -->
+{% assign recommended_total = 0 %}
+{% assign frequently_product = product.metafields.custom.frequently_bought_together.value %}
+
+{% for related_product in product.metafields.custom.frequently_bought_together.value %}
+  {% assign variant_price = related_product.variants.first.price %}
+  {% assign recommended_total = recommended_total | plus: variant_price %}
+{% endfor %}
+
+{% if frequently_product %}
+  <div class="page-width">
+    <div class="fbt-wrapper">
+      <h2 class="fbt-title">{{ section.settings.heading }}</h2>
+      <div class="fbt-info">
+        <div class="fbt-products">
+          {% for related_product in frequently_product %}
+            {% if forloop.index == 1 %}
+              <a class="fbt-product" href="{{ related_product.url }}">
+                <img src="{{ related_product.featured_image | img_url: 'medium' }}" alt="{{ related_product.title }}" height="80" width="80">
+                <div class="fbt-product-description">
+                  <h4>{{ related_product.title }}</h4>
+                  <p>{{ related_product.description | strip_html | truncate: 50 }}</p>
+                  {% if related_product.variants.first %}
+                    <p>{{ related_product.variants.first.price | money }}</p>
+                  {% endif %}
+                </div>
+              </a>
+            {% else %}
+              <span class="fbt-add-icon">+</span>
+              <a class="fbt-product fbt-product-{{ forloop.index }}" href="{{ related_product.url }}">
+                <img src="{{ related_product.featured_image | img_url: 'medium' }}" alt="{{ related_product.title }}" height="80" width="80">
+                <div class="fbt-product-description">
+                  <h4>{{ related_product.title }}</h4>
+                  <p>{{ related_product.description | strip_html | truncate: 50 }}</p>
+                  {% if related_product.variants.first %}
+                    <p>{{ related_product.variants.first.price | money }}</p>
+                  {% endif %}
+                </div>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="fbt-count-button">
+          <p class="fbt-recommended-total">
+            {{ section.settings.total-price }} {{ recommended_total | money }}   
+          </p>
+
+          <form method="post" action="/cart/add">
+            {% assign index = 0 %}
+            {% for related_product in frequently_product %}
+              {% if related_product.variants.first %}
+                <input type="hidden" name="items[{{ index }}][id]" value="{{ related_product.variants.first.id }}">
+                <input type="hidden" name="items[{{ index }}][quantity]" value="1">
+                {% assign index = index | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="product-form__submit button button--full-auto button--primary fbt-add-button">
+              {{ section.settings.button-text }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Frequently Bought Together",
+      "label": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "total-price",
+      "default": "Total Price: ",
+      "label": "Total Price Label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "button-text",
+      "default": "Add all to cart",
+      "label": "Button Text"
+    }
+  ]
+}
+{% endschema %}

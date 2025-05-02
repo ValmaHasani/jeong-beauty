@@ -1876,13 +1876,14 @@ input[type='checkbox'] {
 .quantity {
   color: rgba(var(--color-foreground));
   position: relative;
-  width: calc(14rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
+  width: calc(16rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
   display: flex;
   border-radius: var(--inputs-radius);
-  min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+  min-height: calc((var(--inputs-border-width) * 2) + 3.5rem);
+  border-radius: 5px;
 }
 
-.quantity:after {
+/* .quantity:after {
   pointer-events: none;
   content: '';
   position: absolute;
@@ -1895,7 +1896,7 @@ input[type='checkbox'] {
   box-shadow: 0 0 0 var(--inputs-border-width) rgba(var(--color-foreground), var(--inputs-border-opacity));
   transition: box-shadow var(--duration-short) ease;
   z-index: 1;
-}
+} */
 
 .quantity:before {
   background: rgb(var(--color-background));
@@ -1927,6 +1928,9 @@ input[type='checkbox'] {
   flex-grow: 1;
   -webkit-appearance: none;
   appearance: none;
+  margin: 0 6px;
+  border: 1px solid;
+  border-radius: 6px;
 }
 
 .quantity__button {
@@ -1941,6 +1945,9 @@ input[type='checkbox'] {
   justify-content: center;
   color: rgb(var(--color-foreground));
   padding: 0;
+  border: 1px solid;
+  margin-left: 0;
+  border-radius: 6px;
 }
 
 .quantity__button:first-child {
@@ -2344,10 +2351,6 @@ input[type='checkbox'] {
   display: block;
   position: relative;
   background-color: rgb(var(--color-background));
-}
-
-.header-wrapper--border-bottom {
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
 
 .header {
@@ -2937,6 +2940,7 @@ details-disclosure>details {
   background: rgb(var(--color-background));
   background: var(--gradient-background);
   background-attachment: fixed;
+  background-color: #FAF8F8;
 }
 
 @media screen and (forced-colors: active) {
@@ -3602,4 +3606,79 @@ details-disclosure>details {
   100% {
     transform: translateX(100%) scaleX(0);
   }
+}
+
+/* Frequently Bought Together */
+
+.fbt-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #D1D5DB;
+  border-radius: 10px;
+}
+
+.fbt-info .fbt-products {
+  width: 60%;
+  border-right: 1px solid #D1D5DB;
+}
+
+@media screen and (max-width: 750px) {
+  .fbt-info {
+    flex-direction: column;
+  }
+  .fbt-info .fbt-products {
+    width: 100%;
+  }
+  div.fbt-count-button {
+    width: 100%;
+  }
+}
+
+.fbt-product-2 {
+  background-color: #F2F2F2;  
+  background-color: #F2F2F2;
+  border-radius: 0 0 0 10px;
+}
+a.fbt-product {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  text-decoration: none;
+}
+span.fbt-add-icon {
+  background-color: white;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+  left: 10%;
+  box-shadow: 1px 0px 3px gray;
+}
+a.fbt-product img {
+  object-fit: cover;
+}
+
+.fbt-product-description {
+  width: 100%;
+  padding-left: 28px;
+}
+.fbt-product-description h4, 
+.fbt-product-description p {
+  margin: 0;
+  font-size: 16px;
+  color: #333333;
+}
+.fbt-product-description h4 {
+  font-weight: 600;
+}
+.fbt-count-button {
+  width: 40%;
+  padding: 20px;
+  text-align: center;
 }

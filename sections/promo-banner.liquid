@@ -1,0 +1,63 @@
+{% schema %}
+{
+  "name": "Promo Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "product_image_1",
+      "label": "Product Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "model_image",
+      "label": "Model Image"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo Text",
+      "default": "Get 10% back to use on future purchases*"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Earn Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="promo-banner page-width" style="display: flex; flex-wrap: wrap;">
+  <!-- Left Images -->
+  <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 10px;">
+    {% if section.settings.product_image_1 %}
+      <img src="{{ section.settings.product_image_1 | img_url: 'master' }}" alt="Product Image 1" height="100%" width="100%" style="position: relative;left: 2px;bottom: -1px;">
+    {% endif %}
+  </div>
+
+  <!-- Middle Image -->
+  <div style="flex: 1; min-width: 250px;">
+    {% if section.settings.model_image %}
+      <img src="{{ section.settings.model_image | img_url: 'master' }}" alt="Model Image" height="100%" width="100%">
+    {% endif %}
+  </div>
+
+  <!-- Right Text Block -->
+  <div style="flex: 1; min-width: 250px; background: #ffe8c8; padding: 40px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+    <h2 style="font-size: 1.5rem; margin-bottom: 20px;">{{ section.settings.promo_text }}</h2>
+    <a href="{{ section.settings.button_link }}" class="button" style="background: #000; color: #fff; padding: 12px 24px; border-radius: 4px; text-decoration: none;">{{ section.settings.button_text }}</a>
+  </div>
+</div>

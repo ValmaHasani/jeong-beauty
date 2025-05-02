@@ -1,0 +1,229 @@
+{% schema %}
+{
+  "name": "Main Banner",
+  "tag": "section",
+  "class": "main-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "offer_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "offer_heading",
+      "label": "Banner Heading",
+      "default": "10% Sale for Valentine!"
+    },
+    {
+      "type": "url",
+      "id": "offer_button_link",
+      "label": "Banner Button Link"
+    },
+    {
+      "type": "text",
+      "id": "offer_button_text",
+      "label": "Banner Button Text",
+      "default": "Take the offer"
+    },
+    {
+      "type": "text",
+      "id": "membership_heading",
+      "label": "Membership Heading",
+      "default": "membership benefits"
+    },
+    {
+      "type": "textarea",
+      "id": "membership_text",
+      "label": "Membership Description",
+      "default": "Join our JOUNG loyalty program where you can collect JOUNG points that you can exchange for discounts on your next purchases!"
+    },
+    {
+      "type": "text",
+      "id": "register_button_text",
+      "label": "Register Button Text",
+      "default": "Register Now"
+    },
+    {
+      "type": "url",
+      "id": "register_button_link",
+      "label": "Register Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit_item",
+      "name": "Benefit Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Benefit Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Benefit Text",
+          "default": "Example benefit"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Main Banner"
+    }
+  ]
+}
+{% endschema %}
+
+
+<section class="page-width main-banner-wrapper">
+  <div class="main-banner-container">
+    <div class="main-banner-left">
+        <div class="main-banner-img-wrapper">
+            <div class="img-overlay"></div>
+            {% if section.settings.offer_image %}
+                <img src="{{ section.settings.offer_image | image_url: width: 700 }}" alt="Banner Image" class="banner-img" width="100%" height="100%">
+            {% endif %}
+            <div class="main-banner-overlay">
+                <h2>{{ section.settings.offer_heading }}</h2>
+                {% if section.settings.offer_button_link %}
+                <a href="{{ section.settings.offer_button_link }}" class="main-banner-btn">{{ section.settings.offer_button_text }}</a>
+                {% endif %}
+            </div>
+      </div>
+    </div>
+    <div class="main-banner-right">
+        <div>
+            <h2>{{ section.settings.membership_heading }}</h2>
+            <p>{{ section.settings.membership_text }}</p>
+
+            {% if section.settings.register_button_link %}
+                <a href="{{ section.settings.register_button_link }}" class="main-register-btn">{{ section.settings.register_button_text }}</a>
+            {% endif %}
+        </div>
+        <ul class="main-banner-benefits">
+            {% for block in section.blocks %}
+            {% if block.type == 'benefit_item' %}
+                <li>
+                {% if block.settings.icon %}
+                    <img src="{{ block.settings.icon | image_url: width: 32 }}" alt="Benefit Icon" style="display:inline-block;vertical-align:middle;margin-right:0.5rem;" width="auto" height="auto">
+                {% endif %}
+                <span style="display:inline-block;vertical-align:middle;">{{ block.settings.text }}</span>
+                </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+.main-banner-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+@media screen and (max-width: 768px) {
+    .main-banner-container {
+        flex-direction: column;
+    }
+    .main-banner-img-wrapper {
+        display: flex;
+    }
+    div.main-banner-overlay {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+    }
+    div.main-banner-overlay h2 {
+        margin-bottom: 0;
+        font-size: 24px;
+    }
+}
+.main-banner-left {
+  position: relative;
+  flex: 1 1 45%;
+}
+.banner-img {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.main-banner-img-wrapper {
+    position: relative;
+}
+.img-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: #00000033;
+    border-radius: 16px;
+    z-index: 1;
+}
+.img-overlay:empty {
+    display: block;
+}
+.main-banner-overlay {
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+    color: white;
+    z-index: 2;
+}
+
+.main-banner-overlay h2 {
+  font-size: 32px;
+  color: white;
+  font-weight: bold;
+}
+.main-banner-btn {
+  background: black;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+  text-decoration: none;
+}
+.main-banner-right {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main-banner-right h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.main-banner-right p {
+  margin: 1rem 0;
+}
+.main-register-btn {
+  background: #000;
+  color: #fff;
+  padding: 0.7rem 1.2rem;
+  margin: 1rem 0;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  display: inline-block;
+  width: fit-content;
+}
+.main-banner-benefits {
+    padding: 0;
+}
+.main-banner-benefits li {
+  background: #fde3b0;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  list-style: none;
+}
+
+.main-banner-benefits li:last-child {
+    margin-bottom: 0;
+}
+</style>

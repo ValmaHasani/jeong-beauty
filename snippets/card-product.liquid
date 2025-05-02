@@ -149,8 +149,7 @@
             class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
             {% if card_product.featured_media or settings.card_style == 'card' %}
               id="title-{{ section_id }}-{{ card_product.id }}"
-            {% endif %}
-          >
+            {% endif %}>
             <a
               href="{{ card_product.url }}"
               id="CardLink-{{ section_id }}-{{ card_product.id }}"
@@ -159,7 +158,10 @@
             >
               {{ card_product.title | escape }}
             </a>
+            <p>{{ card_product.description | strip_html | truncate: 80, "..." }}</p>
+
           </h3>
+         
           <div class="card-information">
             {%- if show_vendor -%}
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
